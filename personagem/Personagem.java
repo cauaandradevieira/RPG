@@ -50,12 +50,16 @@ public abstract class Personagem implements PersonagemInterface
     @Override
     public void atacar(Personagem personagem)
     {
-        if(!personagem.esquivar())
+        if(personagem.esquivar())
         {
-            this.causarDanoNo(personagem);
+            System.out.println(personagem.getNome() + "Esquivou...");
             return;
         }
-        System.out.println(this.nome + " esquivou...");
+
+        if(this.getPermissaoAtacar())
+        {
+            this.causarDanoNo(personagem);
+        }
     }
 
     @Override
@@ -99,4 +103,6 @@ public abstract class Personagem implements PersonagemInterface
     public void setCritico(int critico) {
         this.critico = critico;
     }
+    public boolean getPermissaoAtacar() {return permissaoAtacar;}
+    public void setPermissaoAtacar(boolean permissaoAtacar) {this.permissaoAtacar = permissaoAtacar;}
 }
