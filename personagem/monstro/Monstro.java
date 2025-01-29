@@ -14,6 +14,7 @@ public class Monstro extends Personagem
         this.miss = 1;
         this.nome = dadosMonstros.name();
         this.dadosMonstros = dadosMonstros;
+        this.permissaoAtacar = PERMISSAO_ATACAR_INICIAL;
     }
 
     @Override
