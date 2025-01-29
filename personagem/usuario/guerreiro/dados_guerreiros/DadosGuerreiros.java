@@ -80,13 +80,13 @@ public enum DadosGuerreiros
 
     @Override
     public String toString() {
-        return  "=-=-=-=INFO:" + nomeClasse+ "=-=-=-=" + "\n"
-                +"vida:" + vida + "\n"
-                +"arma:" + arma + "\n"
-                + "dano:" + dano + "\n"
-                + "miss:" + miss + "\n"
-                + "critico:" + critico + "\n"
-                + "escudo:" + escudo + "\n"
-                + "chanceEscudo:" + chanceEscudo;
+        return  "=-=-=-=INFO " + nomeClasse+ "=-=-=-=" + "\n"
+                +"vida: " + vida + "\n"
+                +"arma: " + arma + "\n"
+                + "dano: " + dano + "\n"
+                + "miss: " + miss + "\n"
+                + "critico: " + critico + "\n"
+                + "escudo: " + escudo + "\n"
+                + "chanceEscudo: " + chanceEscudo;
     }
 }
