@@ -23,6 +23,10 @@ public abstract class Usuario extends Personagem implements VariaveisConst
     public void atacar(Personagem personagem)
     {
         super.atacar(personagem);
+        if(!personagem.verificarVida())
+        {
+            levelUp(personagem);
+        }
     }
 
     @Override
