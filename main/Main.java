@@ -3,7 +3,6 @@ package projeto_rpg.main;
 import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.monstro.DadosMonstros;
 import projeto_rpg.personagem.monstro.Monstro;
-import projeto_rpg.personagem.usuario.Usuario;
 import projeto_rpg.personagem.usuario.guerreiro.Guerreiro;
 import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros;
 
@@ -15,25 +14,20 @@ public class Main
         System.out.println(DadosGuerreiros.ESPARTANO);
         DadosMonstros dadosMonstros = DadosMonstros.MINOTAURO;
         Personagem monstro = new Monstro(dadosMonstros);
+        int i = 0;
 
-        while(true)
+        while(i < 4)
         {
-            Usuario usuario = (Usuario) guerreiro;
+            System.out.println("-=-=-=-=- BATALHA -=-=-=-=-=-");
 
             guerreiro.atacar(monstro);
-            System.out.println("vida do monstro" + monstro.getVida());
-
-            System.out.println(usuario.getDano());
-            System.out.println(usuario.getVida());
-            if(!monstro.verificarVida())
-            {
-                usuario.levelUp(monstro);
-                return;
-            }
 
             monstro.atacar(guerreiro);
-            System.out.println("vida guerreiro" + guerreiro.getVida());
+            
+            System.out.println("-----------------------------------------------------------------");
+            if(!monstro.verificarVida()) return;
             if(!guerreiro.verificarVida()) return;
+            i++;
         }
     }
 }
