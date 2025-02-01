@@ -1,4 +1,6 @@
-package projeto_rpg.personagem;
+package projeto_rpg.interfaces;
+
+import projeto_rpg.personagem.Personagem;
 
 public interface PersonagemInterface
 {

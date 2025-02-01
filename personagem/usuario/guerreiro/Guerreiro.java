@@ -1,13 +1,15 @@
 package projeto_rpg.personagem.usuario.guerreiro;
 
+import projeto_rpg.interfaces.tipos_passivas.PassivaRodadaCongelada;
 import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.usuario.Usuario;
 import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros;
 
-public class Guerreiro extends Usuario
+public class Guerreiro extends Usuario implements PassivaRodadaCongelada
 {
     protected String escudo;
     protected int chanceDefender;
+    protected int danoEscudoProtege;
     protected DadosGuerreiros dadosGuerreiros;
 
     public Guerreiro(String nick, DadosGuerreiros dadosGuerreiros)
@@ -21,38 +23,57 @@ public class Guerreiro extends Usuario
         this.critico = dadosGuerreiros.getCritico();
         this.escudo = dadosGuerreiros.getEscudo();
         this.dadosGuerreiros = dadosGuerreiros;
-        this.chanceDefender = 4;
+        this.chanceDefender = 1;
         this.escudo = dadosGuerreiros.getEscudo();
+        this.danoEscudoProtege = 2;
     }
 
     public void defender(Personagem inimigo)
     {
-        inimigo.setPermissaoAtacar(true);
         int numeroAleatorio = random.nextInt(1,6);
 
         if(numeroAleatorio <= chanceDefender)
         {
-            System.out.println("DEFENDEU");
-
-            System.out.println("VIDA DO PERSONAGEM: " + this.vida);
-            int danoinimigoAntesAlterar = inimigo.getDano();
-            System.out.println("DANO INIMIGO SEM ALTERAR: " + danoinimigoAntesAlterar);
-            inimigo.setDano( danoinimigoAntesAlterar / 2);
-            System.out.println("DANO INIMIGO ALTERANDO O VALOR: " + inimigo.getDano());
             inimigo.atacar(this);
-            System.out.println("VIDA DO PERSONAGEM: " + this.vida);
-            inimigo.setDano(danoinimigoAntesAlterar);
-            System.out.println("DANO DO INIMIGO ALTERADO COMO ANTES: " + inimigo.getDano());
 
-            System.out.println(inimigo.getPermissaoAtacar());
+            verificarSeHouveEsquiva(inimigo);
+
             inimigo.setPermissaoAtacar(false);
-            System.out.println(inimigo.getPermissaoAtacar());
         }
     }
 
+    public void verificarSeHouveEsquiva(Personagem inimigo)
+    {
+        if(this.houveEsquiva || !inimigo.getPermissaoAtacar())
+        {
+            return;
+        }
+
+        System.out.print(this.nome + " DEFENDEU o ataque com o " + this.escudo);
+
+        this.setVida( this.getVida() + this.danoEscudoProtege );
+
+        int danoCriticoRecebido = inimigo.getDano() * 2;
+
+        if(!inimigo.getHouveCritico())
+        {
+            System.out.println(" inves de receber " + inimigo.getDano() + " de dano " + "recebeu " + (inimigo.getDano() - danoEscudoProtege) + " de dano");
+            return;
+        }
+
+        System.out.println(" inves de receber " + ( danoCriticoRecebido ) + " de dano " + "recebeu " + ( danoCriticoRecebido - danoEscudoProtege) + " de dano");
+    }
+
     @Override
-    public void atacar(Personagem monstro) {
-        super.atacar(monstro);
-        defender(monstro);
+    public void atacar(Personagem inimigo) {
+        super.atacar(inimigo);
+        passivaRodadaCongelada(inimigo);
+    }
+
+    @Override
+    public void passivaRodadaCongelada(Personagem inimigo)
+    {
+        inimigo.setPermissaoAtacar(true);
+        defender(inimigo);
     }
 }

@@ -1,5 +1,7 @@
 package projeto_rpg.personagem;
 
+import projeto_rpg.interfaces.PersonagemInterface;
+
 import java.util.Random;
 
 public abstract class Personagem implements PersonagemInterface
@@ -8,10 +10,14 @@ public abstract class Personagem implements PersonagemInterface
     protected int vida;
     protected String arma;
     protected String nome;
+    protected String passivaAtiva;
     protected int dano;
     protected int miss;
     protected int critico;
+    protected int rodada;
     protected Random random;
+    protected boolean houveCritico;
+    protected boolean houveEsquiva;
 
     public Personagem()
     {
@@ -30,13 +36,14 @@ public abstract class Personagem implements PersonagemInterface
     {
         int chanceCritar = random.nextInt(1, 6);
 
-        if (chanceCritar <= critico)
+        if (this.houveCritico = (chanceCritar <= critico))
         {
             int danoTotal = this.dano * 2;
-            System.out.println(this.nome + " causou: " + danoTotal + " de dano (CRITICO)" + " com a " + arma);
+            System.out.println(this.nome + " causou: " + danoTotal + " de dano (CRITICO) com a " + this.arma);
             return danoTotal;
         }
-        System.out.println(this.nome + " causou: " + this.dano + " de dano" + " com a " + arma);
+        System.out.println(this.nome + " causou: " + this.dano + " de dano com a" + " com a " + this.arma);
+        System.out.println(this.nome + houveCritico);
         return this.dano;
     }
 
@@ -44,27 +51,46 @@ public abstract class Personagem implements PersonagemInterface
     public boolean esquivar()
     {
         int chanceEsquivar = random.nextInt(1,6);
-        return chanceEsquivar <= miss ;
+        houveEsquiva = chanceEsquivar <= miss ;
+        return houveEsquiva;
     }
 
     @Override
     public void atacar(Personagem personagem)
     {
-        if(personagem.esquivar())
+        if(!this.getPermissaoAtacar())
         {
-            System.out.println(personagem.getNome() + "Esquivou...");
+            System.out.println(this.nome + " PERMISSAO ATACAR FALSEEEEEE !!!!");
             return;
         }
 
-        if(this.getPermissaoAtacar())
+        if(!personagem.esquivar())
         {
             this.causarDanoNo(personagem);
+            return;
         }
+        System.out.println(personagem.getNome() + " Esquivou...");
     }
 
     @Override
     public boolean verificarVida() {
         return this.getVida() > 0;
+    }
+
+    public boolean getHouveCritico() {
+        return houveCritico;
+    }
+
+    public void setHouveCritico(boolean houveCritico) {
+        this.houveCritico = houveCritico;
+    }
+
+    public boolean getHouveEsquiva() {
+        return houveEsquiva;
+    }
+
+    public void setHouveEsquiva(boolean houveEsquiva) {
+        this.houveEsquiva = houveEsquiva;
     }
 
     public int getVida() {

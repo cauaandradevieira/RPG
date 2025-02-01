@@ -1,5 +1,6 @@
 package projeto_rpg.personagem.usuario;
 
+import projeto_rpg.interfaces.VariaveisConst;
 import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.monstro.DadosMonstros;
 import projeto_rpg.personagem.monstro.Monstro;
@@ -74,5 +75,29 @@ public abstract class Usuario extends Personagem implements VariaveisConst
             this.vida += AUMENTO_VIDA;
             this.barralevel = 0;
         }
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public float getBarralevel() {
+        return barralevel;
+    }
+
+    public void setBarralevel(float barralevel) {
+        this.barralevel = barralevel;
     }
 }

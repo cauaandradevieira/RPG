@@ -1,8 +1,10 @@
 package projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros;
 
+import projeto_rpg.TodasClasses;
+
 public enum DadosGuerreiros
 {
-    ESPARTANO(150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 2, "ESPARTANO"){
+    ESPARTANO(1,150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 2, "ESPARTANO"){
         @Override
         public String getArmaNivel2() {return "Lança de Dorun";}
 
@@ -20,9 +22,42 @@ public enum DadosGuerreiros
 
         @Override
         public String getEscudoNivel4() {return "Escudo de Ares";}
+    },
+
+    VIKING(2,150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 2, "VIKING"){
+        @Override
+        public String getArmaNivel2() {
+            return "";
+        }
+
+        @Override
+        public String getArmaNivel3() {
+            return "";
+        }
+
+        @Override
+        public String getArmaNivel4() {
+            return "";
+        }
+
+        @Override
+        public String getEscudoNivel2() {
+            return "";
+        }
+
+        @Override
+        public String getEscudoNivel3() {
+            return "";
+        }
+
+        @Override
+        public String getEscudoNivel4() {
+            return "";
+        }
     };
 
-    DadosGuerreiros(int vida, String arma, int dano, int miss, int critico, String escudo, int chanceEscudo, String nomeClasse) {
+    DadosGuerreiros( int numeroClasse,int vida, String arma, int dano, int miss, int critico, String escudo, int chanceEscudo, String nomeClasse) {
+        this.numeroClasse = numeroClasse;
         this.vida = vida;
         this.arma = arma;
         this.dano = dano;
@@ -32,7 +67,7 @@ public enum DadosGuerreiros
         this.chanceEscudo = chanceEscudo;
         this.nomeClasse = nomeClasse;
     }
-
+    private final int numeroClasse;
     private final int vida;
     private final String arma;
     private final int dano;
@@ -49,6 +84,10 @@ public enum DadosGuerreiros
     public abstract String getEscudoNivel2();
     public abstract String getEscudoNivel3();
     public abstract String getEscudoNivel4();
+
+    public int getNumeroClasse() {
+        return numeroClasse;
+    }
 
     public int getVida() {
         return vida;

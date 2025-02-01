@@ -1,4 +1,4 @@
-package projeto_rpg.personagem.usuario;
+package projeto_rpg.interfaces;
 
 public interface VariaveisConst
 {
