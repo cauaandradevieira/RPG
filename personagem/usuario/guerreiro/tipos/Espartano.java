@@ -7,10 +7,9 @@ import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros
 
 public class Espartano extends Guerreiro implements PassivaRodadas
 {
-    public Espartano(String nick, DadosGuerreiros dadosGuerreiros)
+    public Espartano(DadosGuerreiros dadosGuerreiros)
     {
-        super(nick, dadosGuerreiros);
-        this.passivaAtiva = "";
+        super(dadosGuerreiros);
     }
 
     @Override
@@ -21,23 +20,18 @@ public class Espartano extends Guerreiro implements PassivaRodadas
     }
 
     @Override
-    public void passivaRodadaCongelada(Personagem inimigo) {
-        super.passivaRodadaCongelada(inimigo);
-    }
-
-    @Override
     public void passivaRodadas(Personagem personagem) {
         raiva();
     }
 
     @Override
     public void raiva() {
-        if(passivaAtiva.equals(passivaRaiva) || passivaAtiva == "");
+        if(passivaAtiva.equals(passivaRaiva) || passivaAtiva.isEmpty());
         {
             if(rodada >= 1)
             {
                 this.rodada = 0;
-                System.out.println("acabou efeito da passiva" + this.passivaAtiva);
+                System.out.println("ACABOU O EFEITO DA PASSIVA " + this.passivaAtiva);
                 System.out.println("critico de" + this.critico + " -> " + (this.critico-1));
                 this.passivaAtiva = "";
                 this.critico -= 1;
@@ -51,9 +45,11 @@ public class Espartano extends Guerreiro implements PassivaRodadas
                 this.passivaAtiva = passivaRaiva;
                 this.critico += 1;
                 this.rodada += 1;
-                System.out.println("ATIVOU EFEITO PASSIVA" + this.passivaAtiva);
-                System.out.println("critico de" + (this.critico-1) + "->" + this.critico);
+                System.out.println("ATIVOU EFEITO PASSIVA " + this.passivaAtiva);
+                System.out.println("critico de" + (this.critico-1) + " -> " + this.critico);
             }
         }
     }
+
+
 }

@@ -1,5 +1,6 @@
 package projeto_rpg;
 
+import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.usuario.arqueiro.DadosArqueiros;
 import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros;
 
@@ -9,29 +10,35 @@ public enum TodasClasses
 {
     GUERREIRO(1) {
         @Override
-        public void mostrarTipos(int classeEscolhida) {
-            if(classeEscolhida != getNumeroClasse())
-            {
-                return;
-            }
+        public Personagem exibirEscolherTipos(TodasClasses classeEscolhida, Scanner scanner) {
+
             for(DadosGuerreiros dadosGuerreiros : DadosGuerreiros.values())
             {
                 System.out.println("["+ dadosGuerreiros.getNumeroClasse() +"]"+ dadosGuerreiros.name());
             }
+
+            int escolher = Integer.parseInt(scanner.nextLine());
+
+            DadosGuerreiros dadosGuerreiros = DadosGuerreiros.values()[escolher-1];
+
+            return dadosGuerreiros.criarObj();
         }
     },
 
     ARQUEIRO(2) {
         @Override
-        public void mostrarTipos(int classeEscolhida) {
-            if(classeEscolhida != getNumeroClasse())
+        public Personagem exibirEscolherTipos(TodasClasses classeEscolhida, Scanner scanner) {
+
+            for(DadosGuerreiros dadosGuerreiros : DadosGuerreiros.values())
             {
-                return;
+                System.out.println("["+ dadosGuerreiros.getNumeroClasse() +"]"+ dadosGuerreiros.name());
             }
-            for(DadosArqueiros dadosArqueiros : DadosArqueiros.values())
-            {
-                System.out.println("["+ dadosArqueiros.getNumeroClasse() +"]"+ dadosArqueiros.name());
-            }
+
+            int escolher = Integer.parseInt(scanner.nextLine());
+
+            DadosGuerreiros dadosGuerreiros = DadosGuerreiros.values()[escolher-1];
+
+            return dadosGuerreiros.criarObj();
 
         }
     };
@@ -46,7 +53,9 @@ public enum TodasClasses
         return numeroClasse;
     }
 
-    public static int EscolherClasse(Scanner scanner)
+    public abstract Personagem exibirEscolherTipos(TodasClasses todasClasses, Scanner scanner);
+
+    public static TodasClasses exibirEscolherClasse(Scanner scanner)
     {
         System.out.println("Escolha sua classe:");
 
@@ -54,17 +63,14 @@ public enum TodasClasses
         {
             System.out.println("["+ classes.getNumeroClasse()+"]"+classes);
         }
-        return Integer.parseInt(scanner.nextLine());
-    }
 
-    public abstract void mostrarTipos(int classeEscolhida);
+        int escolher = Integer.parseInt(scanner.nextLine());
 
-    public static void escolherTipo(int numeroTipo)
-    {
-        for(TodasClasses todasClasses : TodasClasses.values())
+        if(escolher > TodasClasses.values().length)
         {
-            todasClasses.mostrarTipos(numeroTipo);
+            return null;
         }
-    }
 
+        return TodasClasses.values()[escolher-1];
+    }
 }

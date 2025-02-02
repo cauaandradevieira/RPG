@@ -5,16 +5,16 @@ import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.usuario.Usuario;
 import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros;
 
-public class Guerreiro extends Usuario implements PassivaRodadaCongelada
+public abstract class Guerreiro extends Usuario implements PassivaRodadaCongelada
 {
     protected String escudo;
     protected int chanceDefender;
     protected int danoEscudoProtege;
     protected DadosGuerreiros dadosGuerreiros;
 
-    public Guerreiro(String nick, DadosGuerreiros dadosGuerreiros)
+    public Guerreiro(DadosGuerreiros dadosGuerreiros)
     {
-        super(nick);
+        super();
         this.vida = dadosGuerreiros.getVida();
         this.nome = dadosGuerreiros.name() + "(GUERREIRO)";
         this.arma = dadosGuerreiros.getArma();
@@ -64,6 +64,7 @@ public class Guerreiro extends Usuario implements PassivaRodadaCongelada
         System.out.println(" inves de receber " + ( danoCriticoRecebido ) + " de dano " + "recebeu " + ( danoCriticoRecebido - danoEscudoProtege) + " de dano");
     }
 
+
     @Override
     public void atacar(Personagem inimigo) {
         super.atacar(inimigo);
@@ -75,5 +76,28 @@ public class Guerreiro extends Usuario implements PassivaRodadaCongelada
     {
         inimigo.setPermissaoAtacar(true);
         defender(inimigo);
+    }
+
+    @Override
+    public String toString() {
+        return "Guerreiro{" +
+                "escudo='" + escudo + '\'' +
+                ", chanceDefender=" + chanceDefender +
+                ", danoEscudoProtege=" + danoEscudoProtege +
+                ", barralevel=" + barralevel +
+                ", nivel=" + nivel +
+                ", permissaoAtacar=" + permissaoAtacar +
+                ", vida=" + vida +
+                ", arma='" + arma + '\'' +
+                ", nome='" + nome + '\'' +
+                ", passivaAtiva='" + passivaAtiva + '\'' +
+                ", critico=" + critico +
+                ", miss=" + miss +
+                ", dano=" + dano +
+                ", rodada=" + rodada +
+                ", random=" + random +
+                ", houveCritico=" + houveCritico +
+                ", houveEsquiva=" + houveEsquiva +
+                '}';
     }
 }

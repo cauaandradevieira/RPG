@@ -11,9 +11,7 @@ import java.util.Scanner;
 
 public class Rpg
 {
-    String nomeJogador;
     private Personagem personagem;
-    private Personagem monstro;
     private Scanner scanner;
 
     public Rpg()
@@ -21,52 +19,36 @@ public class Rpg
         scanner = new Scanner(System.in);
     }
 
-    public void escolherNome(Personagem personagem)
+    public void criarPersonagem()
     {
-        System.out.println("Digite seu nick: ");
-        nomeJogador = scanner.nextLine();
-    }
+        TodasClasses classeEscolhida = TodasClasses.exibirEscolherClasse(scanner);
 
-    public void escolherClasse()
-    {
-
-        int escolhaClasse = TodasClasses.EscolherClasse(scanner);
-
-        TodasClasses.escolherTipo(escolhaClasse);
-
-        System.out.println("-----------------------------------------------------");
-        switch (escolhaClasse)
+        if(classeEscolhida == null)
         {
-            case 1:
-                personagem = new Espartano("nick" , DadosGuerreiros.ESPARTANO);
-                break;
-            case 2:
-                personagem = new Guerreiro("nick" , DadosGuerreiros.VIKING);
-                break;
+            System.out.println("Enum do tipo TodasClasses e null");
+            return;
         }
 
-        System.out.println("Voce escolheu:" + personagem.getNome());
+        personagem = classeEscolhida.exibirEscolherTipos(classeEscolhida,scanner);
     }
 
     public void batalha()
     {
-        Personagem guerreiro = new Espartano("pretochiq", DadosGuerreiros.ESPARTANO);
-        System.out.println(DadosGuerreiros.ESPARTANO);
-        DadosMonstros dadosMonstros = DadosMonstros.MINOTAURO;
-        Personagem monstro = new Monstro(dadosMonstros);
+        Personagem monstro = new Monstro(DadosMonstros.MINOTAURO);
+
         int i = 0;
 
         while(i < 4)
         {
             System.out.println("-=-=-=-=- BATALHA -=-=-=-=-=-");
 
-            guerreiro.atacar(monstro);
+            personagem.atacar(monstro);
 
-            monstro.atacar(guerreiro);
+            monstro.atacar(personagem);
 
             System.out.println("-----------------------------------------------------------------");
             if(!monstro.verificarVida()) return;
-            if(!guerreiro.verificarVida()) return;
+            if(!personagem.verificarVida()) return;
             i++;
         }
     }

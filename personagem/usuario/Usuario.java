@@ -7,17 +7,16 @@ import projeto_rpg.personagem.monstro.Monstro;
 
 public abstract class Usuario extends Personagem implements VariaveisConst
 {
-    protected String nick;
     protected float barralevel;
     protected int nivel;
 
-    public Usuario(String nick)
+    public Usuario()
     {
         super();
-        this.nick = nick;
         this.barralevel = BARRA_LEVEL_INICIAL;
         this.nivel = NIVEL_INICIAL;
         this.permissaoAtacar = PERMISSAO_ATACAR_INICIAL;
+        this.passivaAtiva = "";
     }
 
     @Override
@@ -75,14 +74,6 @@ public abstract class Usuario extends Personagem implements VariaveisConst
             this.vida += AUMENTO_VIDA;
             this.barralevel = 0;
         }
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
     }
 
     public int getNivel() {

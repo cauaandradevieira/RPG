@@ -1,10 +1,19 @@
 package projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros;
 
-import projeto_rpg.TodasClasses;
+import projeto_rpg.Rpg;
+import projeto_rpg.personagem.Personagem;
+import projeto_rpg.personagem.usuario.guerreiro.Guerreiro;
+import projeto_rpg.personagem.usuario.guerreiro.tipos.Espartano;
+import projeto_rpg.personagem.usuario.guerreiro.tipos.Viking;
 
 public enum DadosGuerreiros
 {
-    ESPARTANO(1,150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 2, "ESPARTANO"){
+    ESPARTANO(1,150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 4, "ESPARTANO"){
+        @Override
+        public Personagem criarObj() {
+            return new Espartano(ESPARTANO);
+        }
+
         @Override
         public String getArmaNivel2() {return "Lança de Dorun";}
 
@@ -24,7 +33,12 @@ public enum DadosGuerreiros
         public String getEscudoNivel4() {return "Escudo de Ares";}
     },
 
-    VIKING(2,150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 2, "VIKING"){
+    VIKING(2,150, "Machado de madeira", 10, 1, 2, "Escudo de Treinamento", 2, "VIKING"){
+        @Override
+        public Personagem criarObj() {
+            return new Viking(VIKING);
+        }
+
         @Override
         public String getArmaNivel2() {
             return "";
@@ -56,6 +70,7 @@ public enum DadosGuerreiros
         }
     };
 
+
     DadosGuerreiros( int numeroClasse,int vida, String arma, int dano, int miss, int critico, String escudo, int chanceEscudo, String nomeClasse) {
         this.numeroClasse = numeroClasse;
         this.vida = vida;
@@ -77,6 +92,7 @@ public enum DadosGuerreiros
     private final int chanceEscudo;
     private final String nomeClasse;
 
+    public abstract Personagem criarObj();
     public abstract String getArmaNivel2();
     public abstract String getArmaNivel3();
     public abstract String getArmaNivel4();

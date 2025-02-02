@@ -93,6 +93,11 @@ public abstract class Personagem implements PersonagemInterface
         this.houveEsquiva = houveEsquiva;
     }
 
+    @Override
+    public String toString() {
+        return "Personagem{}";
+    }
+
     public int getVida() {
         return vida;
     }
