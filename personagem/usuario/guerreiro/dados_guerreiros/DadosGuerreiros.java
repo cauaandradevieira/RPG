@@ -1,14 +1,12 @@
 package projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros;
 
-import projeto_rpg.Rpg;
 import projeto_rpg.personagem.Personagem;
-import projeto_rpg.personagem.usuario.guerreiro.Guerreiro;
 import projeto_rpg.personagem.usuario.guerreiro.tipos.Espartano;
 import projeto_rpg.personagem.usuario.guerreiro.tipos.Viking;
 
 public enum DadosGuerreiros
 {
-    ESPARTANO(1,150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 4, "ESPARTANO"){
+    ESPARTANO(1,150, "Lança do Recruta", 10, 1, 2, "Escudo de Treinamento", 1, "ESPARTANO"){
         @Override
         public Personagem criarObj() {
             return new Espartano(ESPARTANO);
@@ -33,7 +31,7 @@ public enum DadosGuerreiros
         public String getEscudoNivel4() {return "Escudo de Ares";}
     },
 
-    VIKING(2,150, "Machado de madeira", 10, 1, 2, "Escudo de Treinamento", 2, "VIKING"){
+    VIKING(2,160, "Machado de madeira", 12, 1, 1, "Escudo de Madeira", 1, "VIKING"){
         @Override
         public Personagem criarObj() {
             return new Viking(VIKING);
@@ -41,32 +39,32 @@ public enum DadosGuerreiros
 
         @Override
         public String getArmaNivel2() {
-            return "";
+            return "Machado Afiado";
         }
 
         @Override
         public String getArmaNivel3() {
-            return "";
+            return "Machado do Rei Ragnar";
         }
 
         @Override
         public String getArmaNivel4() {
-            return "";
+            return "Martelo de Thor";
         }
 
         @Override
         public String getEscudoNivel2() {
-            return "";
+            return "Escudo de Batalha";
         }
 
         @Override
         public String getEscudoNivel3() {
-            return "";
+            return "Escudo de Ragnar";
         }
 
         @Override
         public String getEscudoNivel4() {
-            return "";
+            return "Escudo dos Deuses";
         }
     };
 

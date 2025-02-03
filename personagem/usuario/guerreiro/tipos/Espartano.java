@@ -21,18 +21,18 @@ public class Espartano extends Guerreiro implements PassivaRodadas
 
     @Override
     public void passivaRodadas(Personagem personagem) {
-        raiva();
+        furia();
     }
 
     @Override
-    public void raiva() {
-        if(passivaAtiva.equals(passivaRaiva) || passivaAtiva.isEmpty());
+    public void furia() {
+        if(passivaAtiva.equals(passivaFuria) || passivaAtiva.isEmpty());
         {
             if(rodada >= 1)
             {
                 this.rodada = 0;
                 System.out.println("ACABOU O EFEITO DA PASSIVA " + this.passivaAtiva);
-                System.out.println("critico de" + this.critico + " -> " + (this.critico-1));
+                System.out.println("critico de " + this.critico + " -> " + (this.critico-1));
                 this.passivaAtiva = "";
                 this.critico -= 1;
                 return;
@@ -42,11 +42,11 @@ public class Espartano extends Guerreiro implements PassivaRodadas
 
             if(numeroAleatorio == 2)
             {
-                this.passivaAtiva = passivaRaiva;
+                this.passivaAtiva = passivaFuria;
                 this.critico += 1;
                 this.rodada += 1;
                 System.out.println("ATIVOU EFEITO PASSIVA " + this.passivaAtiva);
-                System.out.println("critico de" + (this.critico-1) + " -> " + this.critico);
+                System.out.println("critico de " + (this.critico-1) + " -> " + this.critico);
             }
         }
     }

@@ -5,10 +5,13 @@ import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.monstro.DadosMonstros;
 import projeto_rpg.personagem.monstro.Monstro;
 
+import java.util.ArrayList;
+
 public abstract class Usuario extends Personagem implements VariaveisConst
 {
     protected float barralevel;
     protected int nivel;
+    protected ArrayList <Integer> pocoes;
 
     public Usuario()
     {
@@ -17,6 +20,7 @@ public abstract class Usuario extends Personagem implements VariaveisConst
         this.nivel = NIVEL_INICIAL;
         this.permissaoAtacar = PERMISSAO_ATACAR_INICIAL;
         this.passivaAtiva = "";
+        this.pocoes = new ArrayList<>();
     }
 
     @Override

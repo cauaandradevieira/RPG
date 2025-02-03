@@ -3,9 +3,6 @@ package projeto_rpg;
 import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.monstro.DadosMonstros;
 import projeto_rpg.personagem.monstro.Monstro;
-import projeto_rpg.personagem.usuario.guerreiro.Guerreiro;
-import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros;
-import projeto_rpg.personagem.usuario.guerreiro.tipos.Espartano;
 
 import java.util.Scanner;
 
@@ -51,5 +48,10 @@ public class Rpg
             if(!personagem.verificarVida()) return;
             i++;
         }
+        System.out.println(this.personagem.getVida());
+        System.out.println(this.personagem.getDano());
+        Loja.executarOpcao(scanner, personagem);
+        System.out.println(this.personagem.getVida());
+        System.out.println(this.personagem.getDano());
     }
 }

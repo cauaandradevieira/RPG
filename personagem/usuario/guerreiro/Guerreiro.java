@@ -23,7 +23,7 @@ public abstract class Guerreiro extends Usuario implements PassivaRodadaCongelad
         this.critico = dadosGuerreiros.getCritico();
         this.escudo = dadosGuerreiros.getEscudo();
         this.dadosGuerreiros = dadosGuerreiros;
-        this.chanceDefender = 1;
+        this.chanceDefender = dadosGuerreiros.getChanceEscudo();
         this.escudo = dadosGuerreiros.getEscudo();
         this.danoEscudoProtege = 2;
     }
