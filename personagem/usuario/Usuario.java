@@ -1,6 +1,8 @@
 package projeto_rpg.personagem.usuario;
 
+import projeto_rpg.loja.DadosItens;
 import projeto_rpg.interfaces.VariaveisConst;
+import projeto_rpg.loja.Item;
 import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.monstro.DadosMonstros;
 import projeto_rpg.personagem.monstro.Monstro;
@@ -11,7 +13,8 @@ public abstract class Usuario extends Personagem implements VariaveisConst
 {
     protected float barralevel;
     protected int nivel;
-    protected ArrayList <Integer> pocoes;
+    protected ArrayList <Item> inventario;
+    protected double moeda;
 
     public Usuario()
     {
@@ -20,7 +23,8 @@ public abstract class Usuario extends Personagem implements VariaveisConst
         this.nivel = NIVEL_INICIAL;
         this.permissaoAtacar = PERMISSAO_ATACAR_INICIAL;
         this.passivaAtiva = "";
-        this.pocoes = new ArrayList<>();
+        this.inventario = new ArrayList<>();
+        this.moeda = 100;
     }
 
     @Override
@@ -49,9 +53,8 @@ public abstract class Usuario extends Personagem implements VariaveisConst
             return;
         }
 
-        if(monstro instanceof Monstro)
+        if(monstro instanceof Monstro monstro1)
         {
-            Monstro monstro1 = (Monstro) monstro;
             dadosMonstros = monstro1.getDadosMonstros();
         }
 
@@ -80,6 +83,14 @@ public abstract class Usuario extends Personagem implements VariaveisConst
         }
     }
 
+    public void exibirItens()
+    {
+        for (Item itens : inventario)
+        {
+            System.out.println(itens);
+        }
+    }
+
     public int getNivel() {
         return nivel;
     }
@@ -94,5 +105,21 @@ public abstract class Usuario extends Personagem implements VariaveisConst
 
     public void setBarralevel(float barralevel) {
         this.barralevel = barralevel;
+    }
+
+    public ArrayList<Item> getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(ArrayList<Item> inventario) {
+        this.inventario = inventario;
+    }
+
+    public double getMoeda() {
+        return moeda;
+    }
+
+    public void setMoeda(double moeda) {
+        this.moeda = moeda;
     }
 }

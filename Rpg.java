@@ -1,8 +1,12 @@
 package projeto_rpg;
 
+import projeto_rpg.loja.DadosItens;
+import projeto_rpg.loja.Item;
+import projeto_rpg.loja.Loja;
 import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.monstro.DadosMonstros;
 import projeto_rpg.personagem.monstro.Monstro;
+import projeto_rpg.personagem.usuario.Usuario;
 
 import java.util.Scanner;
 
@@ -10,10 +14,12 @@ public class Rpg
 {
     private Personagem personagem;
     private Scanner scanner;
+    private Loja loja;
 
     public Rpg()
     {
         scanner = new Scanner(System.in);
+        this.loja = new Loja();
     }
 
     public void criarPersonagem()
@@ -48,10 +54,34 @@ public class Rpg
             if(!personagem.verificarVida()) return;
             i++;
         }
-        System.out.println(this.personagem.getVida());
-        System.out.println(this.personagem.getDano());
-        Loja.executarOpcao(scanner, personagem);
-        System.out.println(this.personagem.getVida());
-        System.out.println(this.personagem.getDano());
+    }
+
+    public void MenuLoja()
+    {
+        loja.executarOpcao(personagem);
+    }
+
+    public static void teste(Personagem personagem)
+    {
+        if(personagem instanceof  Usuario usuario)
+        {
+            for(Item item : usuario.getInventario())
+            {
+                System.out.println("item inventario" + item);
+            }
+
+            System.out.println("===========================================");
+
+            for(Item item : usuario.getInventario())
+            {
+                System.out.println(item + " " + item.getDadosItens().name());
+            }
+
+            System.out.println(usuario.getMoeda());
+        }
+    }
+
+    public Personagem getPersonagem() {
+        return personagem;
     }
 }
