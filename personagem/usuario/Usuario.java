@@ -8,6 +8,9 @@ import projeto_rpg.personagem.monstro.DadosMonstros;
 import projeto_rpg.personagem.monstro.Monstro;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public abstract class Usuario extends Personagem implements VariaveisConst
 {
@@ -70,8 +73,7 @@ public abstract class Usuario extends Personagem implements VariaveisConst
         if(this.barralevel >= BARRA_LEVEL_MAXIMO)
         {
             this.nivel += 1;
-            System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-            System.out.println("LEVEL UP !!");
+            System.out.println("=-=-=-=-=-=-=-=-=- LEVEL UP -=-=-=-=-=-=-=-=-=-");
             System.out.println("Aumento de dano de: " + this.dano + " -> " + (AUMENTO_DANO+this.dano));
             System.out.println("Aumento de vida de: " + this.vida + " -> " + (AUMENTO_VIDA+this.vida));
             System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
@@ -83,14 +85,114 @@ public abstract class Usuario extends Personagem implements VariaveisConst
         }
     }
 
-    public void exibirItens()
+    public void usarPocao(Personagem personagem, Scanner scanner)
     {
-        for (Item itens : inventario)
+        this.exibirItens();
+        Item item = obterItem(scanner);
+        if(item == null) return;
+        this.executarEfeitoPocao(personagem, item);
+        this.verificacaoParaRemoverItem(item);
+    }
+
+    public void adicionarItemInventario(DadosItens itemLoja)
+    {
+        if(verificarItemExistente(itemLoja))
         {
-            System.out.println(itens);
+            return;
+        }
+        this.inventario.add(new Item(itemLoja.name(), itemLoja));
+    }
+
+    public boolean verificarItemExistente(DadosItens itemLoja)
+    {
+        for(Item item : this.inventario)
+        {
+            if(item.getNome().equals(itemLoja.name()))
+            {
+                item.setQuantidade( item.getQuantidade() + 1 );
+                System.out.println("item existente acrescentamos +1" );
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void verificacaoParaRemoverItem(Item item)
+    {
+        if(item.getQuantidade() == 0)
+        {
+            this.inventario.remove(item);
         }
     }
 
+    public void exibirItens()
+    {
+        int cont = 0;
+        for (Item itens : this.inventario)
+        {
+            cont++;
+            System.out.println("[ " + cont + " ]" + " " +itens);
+        }
+    }
+
+    public Item obterItem(Scanner scanner)
+    {
+        int escolha = obterOpcao(scanner);
+
+        return this.inventario.get(escolha-1);
+    }
+
+    public void executarEfeitoPocao(Personagem personagem, Item item)
+    {
+        if (item.getAtivada())
+        {
+            System.out.println(item.getNome() + " estar em uso.");
+            return;
+        }
+
+        Timer timer = new Timer();
+        DadosItens dadosItens = item.getDadosItens();
+        TimerTask timerTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                System.out.println("ACABOU A POCAO CRIA");
+                dadosItens.refazerEfeitoPocao(personagem);
+                item.setAtivada(false);
+            }
+        };
+        timer.schedule(timerTask, dadosItens.getDuracaoEfeito());
+        dadosItens.efeitoPocao(personagem);
+        item.setQuantidade( item.getQuantidade() - 1);
+        item.setAtivada(true);
+    }
+
+    public int obterOpcao(Scanner scanner)
+    {
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public void menu()
+    {
+        System.out.println("[ 1 ] - USAR");
+        System.out.println("[ 2 ] - EXIBIR");
+    }
+
+    public void executarOpcao(Personagem personagem, Scanner scanner)
+    {
+        menu();
+        switch (obterOpcao(scanner))
+        {
+            case 1:
+                usarPocao(personagem, scanner);
+                break;
+            case 2:
+                exibirItens();
+                break;
+        }
+    }
     public int getNivel() {
         return nivel;
     }

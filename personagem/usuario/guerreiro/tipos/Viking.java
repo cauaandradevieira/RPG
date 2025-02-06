@@ -7,12 +7,14 @@ import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros
 
 public class Viking extends Guerreiro implements PassivaRodadas
 {
-    public Viking(DadosGuerreiros dadosGuerreiros) {
+    public Viking(DadosGuerreiros dadosGuerreiros)
+    {
         super(dadosGuerreiros);
     }
 
     @Override
-    public void atacar(Personagem inimigo) {
+    public void atacar(Personagem inimigo)
+    {
         passivaRodadas(inimigo);
         super.atacar(inimigo);
     }

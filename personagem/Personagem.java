@@ -22,6 +22,7 @@ public abstract class Personagem implements PersonagemInterface
     public Personagem()
     {
         random = new Random();
+        this.rodada = 0;
     }
 
     @Override
@@ -73,8 +74,9 @@ public abstract class Personagem implements PersonagemInterface
     }
 
     @Override
-    public boolean verificarVida() {
-        return this.getVida() > 0;
+    public boolean verificarVida()
+    {
+        return this.getVida() >= 0;
     }
 
     public boolean getHouveCritico() {

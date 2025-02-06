@@ -1,9 +1,50 @@
 package projeto_rpg.loja;
 
+import projeto_rpg.personagem.Personagem;
+
+
 public enum DadosItens
 {
-    POCAO_CURA(1,20,"de cura",10000, 20) ,
-    FORJAR_ARMA(2,2,"de dano",10000,30) ;
+    POCAO_CURA(1,20,"de cura",10000, 20) {
+        @Override
+        public void efeitoPocao(Personagem personagem)
+        {
+            personagem.setVida( personagem.getVida() + getValorEfeitoPocao() );
+        }
+
+        @Override
+        public void refazerEfeitoPocao(Personagem personagem)
+        {
+            personagem.setVida( personagem.getVida() - getValorEfeitoPocao() );
+        }
+    },
+    POCAO_DANO(2,2,"de dano",10000,30) {
+        @Override
+        public void efeitoPocao(Personagem personagem)
+        {
+            personagem.setDano( personagem.getDano() + getValorEfeitoPocao() );
+        }
+
+        @Override
+        public void refazerEfeitoPocao(Personagem personagem)
+        {
+            personagem.setDano( personagem.getDano() - getValorEfeitoPocao() );
+        }
+    },
+
+    POCAO_CRITICO(3,1,"de critico",10000, 60) {
+        @Override
+        public void efeitoPocao(Personagem personagem)
+        {
+            personagem.setCritico( personagem.getCritico() + getValorEfeitoPocao() );
+        }
+
+        @Override
+        public void refazerEfeitoPocao(Personagem personagem)
+        {
+            personagem.setCritico( personagem.getCritico() - getValorEfeitoPocao() );
+        }
+    };
 
     DadosItens(int num, int valorEfeitoPocao,String textoEfeitoItem , int duracaoEfeito, double valor) {
         this.num = num;
@@ -18,6 +59,9 @@ public enum DadosItens
     private final int valorEfeitoPocao;
     private final double valor;
     private final long duracaoEfeito;
+
+    public abstract void efeitoPocao(Personagem personagem);
+    public abstract void refazerEfeitoPocao(Personagem personagem);
 
     public String calculoMinSeg()
     {
@@ -41,10 +85,6 @@ public enum DadosItens
         return texto;
     }
 
-    public void teste()
-    {
-        System.out.println("[" + this.getNum() + "]" + this.name());
-    }
     @Override
     public String toString() {
         return "[" + this.getNum() + "]"+ this.name() + " - " + "R$ " + this.valor + " | Efeito +" + this.valorEfeitoPocao + " " +textoEfeitoItem + " | Duração " + this.calculoMinSeg();

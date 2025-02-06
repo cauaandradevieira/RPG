@@ -1,6 +1,5 @@
 package projeto_rpg.loja;
 
-import jdk.jfr.Percentage;
 import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.usuario.Usuario;
 
@@ -12,7 +11,7 @@ import java.util.Scanner;
 
 public class Loja
 {
-    private ArrayList<DadosItens> loja;
+    private final ArrayList<DadosItens> loja;
     private Scanner scanner;
     public Loja()
     {
@@ -37,7 +36,7 @@ public class Loja
 
             finalizarCompra(usuario,itemLoja);
 
-            Item.adicionarItemInventario(usuario, itemLoja);
+            usuario.adicionarItemInventario(itemLoja);
         }
     }
 
@@ -88,18 +87,20 @@ public class Loja
 
     public static void menu()
     {
-        System.out.println("[1] - Comprar");
-        System.out.println("[2] - Info");
+        System.out.println("[1] - COMPRAR");
+        System.out.println("[2] - EXIBIR");
     }
 
     public void executarOpcao(Personagem personagem)
     {
         menu();
-
         switch (obterOpcao())
         {
             case 1:
                 comprarItem(personagem);
+                break;
+            case 2:
+                exibirItensLoja();
                 break;
         }
     }

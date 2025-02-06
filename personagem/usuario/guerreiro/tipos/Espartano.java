@@ -50,6 +50,4 @@ public class Espartano extends Guerreiro implements PassivaRodadas
             }
         }
     }
-
-
 }

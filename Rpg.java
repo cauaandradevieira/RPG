@@ -1,6 +1,5 @@
 package projeto_rpg;
 
-import projeto_rpg.loja.DadosItens;
 import projeto_rpg.loja.Item;
 import projeto_rpg.loja.Loja;
 import projeto_rpg.personagem.Personagem;
@@ -20,6 +19,52 @@ public class Rpg
     {
         scanner = new Scanner(System.in);
         this.loja = new Loja();
+        this.criarPersonagem();
+        this.Jogar();
+    }
+
+    public void exibirMenu()
+    {
+        System.out.println("[1] - BATALHA");
+        System.out.println("[2] - LOJA");
+        System.out.println("[3] - INVENTARIO");
+        System.out.println("[4] - SAIR");
+    }
+
+    public int obterOpcao()
+    {
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public void Jogar()
+    {
+        while (true)
+        {
+            if(!personagem.verificarVida())
+            {
+                System.out.println("GAMER OVER !!");
+            }
+
+            exibirMenu();
+            switch (obterOpcao())
+            {
+                case 1:
+                    batalha();
+                    break;
+                case 2:
+                    menuLoja();
+                    break;
+                case 3:
+                    menuInventario(personagem, scanner);
+                    break;
+                case 4:
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("escolha inválida.");
+                    break;
+            }
+        }
     }
 
     public void criarPersonagem()
@@ -38,13 +83,9 @@ public class Rpg
     public void batalha()
     {
         Personagem monstro = new Monstro(DadosMonstros.MINOTAURO);
-
-        int i = 0;
-
-        while(i < 4)
+        System.out.println("-=-=-=-=- BATALHA -=-=-=-=-=-");
+        while(true)
         {
-            System.out.println("-=-=-=-=- BATALHA -=-=-=-=-=-");
-
             personagem.atacar(monstro);
 
             monstro.atacar(personagem);
@@ -52,16 +93,20 @@ public class Rpg
             System.out.println("-----------------------------------------------------------------");
             if(!monstro.verificarVida()) return;
             if(!personagem.verificarVida()) return;
-            i++;
         }
     }
 
-    public void MenuLoja()
+    public void menuInventario(Personagem personagem, Scanner scanner)
+    {
+        if(personagem instanceof Usuario usuario) usuario.executarOpcao(personagem,scanner);
+    }
+    public void menuLoja()
     {
         loja.executarOpcao(personagem);
     }
 
-    public static void teste(Personagem personagem)
+
+    public void teste()
     {
         if(personagem instanceof  Usuario usuario)
         {
@@ -72,12 +117,7 @@ public class Rpg
 
             System.out.println("===========================================");
 
-            for(Item item : usuario.getInventario())
-            {
-                System.out.println(item + " " + item.getDadosItens().name());
-            }
-
-            System.out.println(usuario.getMoeda());
+            System.out.println("MOEDA ATUAL: " + usuario.getMoeda());
         }
     }
 
