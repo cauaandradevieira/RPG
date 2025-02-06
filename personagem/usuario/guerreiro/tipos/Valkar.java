@@ -5,9 +5,9 @@ import projeto_rpg.personagem.Personagem;
 import projeto_rpg.personagem.usuario.guerreiro.Guerreiro;
 import projeto_rpg.personagem.usuario.guerreiro.dados_guerreiros.DadosGuerreiros;
 
-public class Espartano extends Guerreiro implements PassivaRodadas
+public class Viking extends Guerreiro implements PassivaRodadas
 {
-    public Espartano(DadosGuerreiros dadosGuerreiros)
+    public Viking(DadosGuerreiros dadosGuerreiros)
     {
         super(dadosGuerreiros);
     }
@@ -19,34 +19,42 @@ public class Espartano extends Guerreiro implements PassivaRodadas
         super.atacar(inimigo);
     }
 
+
     @Override
     public void passivaRodadas(Personagem personagem) {
-        furia();
+        gritoFenhir();
     }
 
     @Override
-    public void furia() {
-        if(passivaAtiva.equals(passivaFuria) || passivaAtiva.isEmpty());
+    public void gritoFenhir() {
+        if(passivaAtiva.equals(passivaGritoFenhir) || passivaAtiva.isEmpty())
         {
-            if(rodada >= 1)
+            if(rodada == 1)
+            {
+                this.rodada += 1;
+                return;
+            }
+
+            if(rodada >= 2)
             {
                 this.rodada = 0;
                 System.out.println("ACABOU O EFEITO DA PASSIVA " + this.passivaAtiva);
-                System.out.println("critico de " + this.critico + " -> " + (this.critico-1));
+                System.out.println("dano de " + this.dano + " -> " + (this.dano-10));
                 this.passivaAtiva = "";
-                this.critico -= 1;
+                this.dano -= 10;
                 return;
             }
+
 
             int numeroAleatorio = random.nextInt(1,3);
 
             if(numeroAleatorio == 2)
             {
-                this.passivaAtiva = passivaFuria;
-                this.critico += 1;
+                this.passivaAtiva = passivaGritoFenhir;
                 this.rodada += 1;
-                System.out.println("ATIVOU EFEITO PASSIVA " + this.passivaAtiva);
-                System.out.println("critico de " + (this.critico-1) + " -> " + this.critico);
+                this.dano += 10;
+                System.out.println("ATIVOU A PASSIVA DE " + this.passivaAtiva);
+                System.out.println("dano de " + (this.dano-10) + " -> " + this.dano);
             }
         }
     }
